@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-	@import './styles/App.scss';
+	@import '../styles/App.scss';
 
 	.main {
 		text-align: center;
