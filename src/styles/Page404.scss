@@ -1,0 +1,21 @@
+@import './config.scss';
+
+.page-404 {
+  text-align: center;
+}
+
+.page-404__title {
+  font-size: 80px;
+  color: $primary-color;
+  padding-top: 50px;
+}
+
+.page-404__sorry {
+  margin-top: 10px;
+  font-size: 40px;
+}
+
+.page-404__back-to-home {
+  margin-top: 30px;
+  font-size: 25px;
+}
