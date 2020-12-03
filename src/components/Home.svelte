@@ -1,6 +1,10 @@
 <script>
-  import { onMount } from 'svelte';
+  import {onMount} from 'svelte';
   import NoInternetToast from './NoInternetToast.svelte';
+  import TodoContext from '../context/TodoContext.context.svelte';
+  import SearchBar from "./SearchBar.svelte";
+  import ListTodos from "./ListTodos.svelte";
+  import AddTodo from "./AddTodo.svelte";
 
   let width = window.innerWidth;
   const onWindowResize = (e) => {
@@ -10,7 +14,7 @@
   };
 
   let showNoInternetToast = false;
-  const setShowNoInternetToast = (show=false) => {
+  const setShowNoInternetToast = (show = false) => {
     showNoInternetToast = show;
   };
 
@@ -19,6 +23,7 @@
     window.ononline = () => showNoInternetToast = false;
     window.onoffline = () => showNoInternetToast = true;
   });
+
 </script>
 
 <style lang="scss">
@@ -30,12 +35,20 @@
 
   {#if width < 992}
     <div class="col">
-      
+      <TodoContext>
+        <SearchBar/>
+        <ListTodos/>
+        <AddTodo/>
+      </TodoContext>
     </div>
   {:else}
     <div class="col-2"></div>
     <div class="col-8">
-      
+      <TodoContext>
+        <SearchBar/>
+        <ListTodos/>
+        <AddTodo/>
+      </TodoContext>
     </div>
     <div class="col-2"></div>
   {/if}

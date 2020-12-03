@@ -1,0 +1,25 @@
+@import "./config";
+
+.add-todo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.add-todo__add-button {
+  border-radius: 50% !important;
+  width: 70px !important;
+  height: 70px !important;
+  padding: 0 !important;
+  background-color: $primary-color;
+  box-shadow: 2px 2px 3px #999;
+  font-size: 40px;
+  font-weight: 500;
+  z-index: 1;
+  outline: none !important;
+  border: none !important;
+}
+
+.add-todo__add-button:hover {
+  background-color: #54acfc;
+}
