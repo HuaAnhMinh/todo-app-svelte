@@ -1,7 +1,8 @@
 <script>
   import {onMount} from 'svelte';
   import NoInternetToast from './NoInternetToast.svelte';
-  import TodoContext from '../context/TodoContext.context.svelte';
+  import SearchPatternContext from '../context/SearchPattern.context.svelte';
+  import ListTodosContext from '../context/ListTodos.context.svelte';
   import SearchBar from "./SearchBar.svelte";
   import ListTodos from "./ListTodos.svelte";
   import AddTodo from "./AddTodo.svelte";
@@ -34,21 +35,25 @@
   <div class="row home__row">
 
   {#if width < 992}
-    <div class="col">
-      <TodoContext>
-        <SearchBar/>
-        <ListTodos/>
-        <AddTodo/>
-      </TodoContext>
+    <div class="col home-wrapper">
+      <SearchPatternContext>
+        <ListTodosContext>
+          <SearchBar/>
+          <ListTodos/>
+          <AddTodo/>
+        </ListTodosContext>
+      </SearchPatternContext>
     </div>
   {:else}
     <div class="col-2"></div>
-    <div class="col-8">
-      <TodoContext>
-        <SearchBar/>
-        <ListTodos/>
-        <AddTodo/>
-      </TodoContext>
+    <div class="col-8 home-wrapper">
+      <SearchPatternContext>
+        <ListTodosContext>
+          <SearchBar/>
+          <ListTodos/>
+          <AddTodo/>
+        </ListTodosContext>
+      </SearchPatternContext>
     </div>
     <div class="col-2"></div>
   {/if}
