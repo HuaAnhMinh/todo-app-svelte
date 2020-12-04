@@ -1,1 +1,18 @@
 @import "./config";
+
+.list-todos {
+  position: absolute;
+  bottom: 20px;
+  top: 80px;
+  overflow: scroll;
+  overflow-x: hidden;
+  width: calc(100% - 15px);
+  scrollbar-width: thin; // for stupid Firefox
+}
+
+@media (min-width: $lg-size) {
+  .list-todos {
+    top: 85px;
+    width: calc(100% - 30px);
+  }
+}

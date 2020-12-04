@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 const _listTodos = () => {
-  let {subscribe, set, update} = writable('');
+  let {subscribe, set, update} = writable([]);
 
   return {
     subscribe,

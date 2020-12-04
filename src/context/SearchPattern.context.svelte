@@ -3,7 +3,7 @@
 
   import searchPattern from '../stores/searchPattern.store';
 
-  setContext('searchPatternContext', searchPattern);
+  setContext('searchPattern', searchPattern);
 </script>
 
 <style lang="scss">
