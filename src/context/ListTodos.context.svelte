@@ -36,6 +36,7 @@
     }
 
     $listTodos[currentIndex] = result.data.todo;
+    return result.data.todo;
   };
 
   const updateTodo = async (id, index, oldTodo, updatedTodo) => {

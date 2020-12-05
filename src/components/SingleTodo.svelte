@@ -1,9 +1,14 @@
 <script>
   import moment from 'moment';
 
+  import AddEditTodoModal from './AddEditTodoModal.svelte';
+
   export let todo;
+  export let todoIndex;
 
   const deadlineString = moment((new Date(todo.deadline))).format('DD/MM/YYYY - HH:mm');
+
+  let openEditTodo = false;
 </script>
 
 <style lang="scss">
@@ -21,7 +26,13 @@
   </div>
   <div class="single-todo__actions">
     <div>
-      <button class="btn btn-primary single-todo__actions__button">
+      <button
+        class="btn btn-primary single-todo__actions__button"
+        on:click={() => openEditTodo = true}
+        data-toggle="modal"
+        data-keyboard="true"
+        data-target="#edit-todo-{todo._id}"
+      >
         <i class="fas fa-edit" />
       </button>
     </div>
@@ -31,4 +42,12 @@
       </button>
     </div>
   </div>
+
+  <AddEditTodoModal
+    onClose={() => openEditTodo = false}
+    open={openEditTodo}
+    modalId="edit-todo-{todo._id}"
+    todo={todo}
+    todoIndex={todoIndex}
+  />
 </div>

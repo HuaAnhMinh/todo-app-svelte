@@ -1,6 +1,8 @@
 <script>
   import { getContext } from 'svelte';
 
+  import AddEditTodoModal from './AddEditTodoModal.svelte';
+
   import SingleTodo from './SingleTodo.svelte';
   
   const listTodos = getContext('listTodos');
@@ -14,7 +16,7 @@
 </style>
 
 <div class="list-todos">
-  {#each derivedListTodos as todo}
-    <SingleTodo todo={todo} />
+  {#each derivedListTodos as todo, index}
+    <SingleTodo todo={todo} todoIndex={index} />
   {/each}
 </div>
