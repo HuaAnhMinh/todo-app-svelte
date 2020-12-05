@@ -1,5 +1,7 @@
 <script>
   import { getContext } from 'svelte';
+
+  import SingleTodo from './SingleTodo.svelte';
   
   const listTodos = getContext('listTodos');
   const searchPattern = getContext('searchPattern');
@@ -13,6 +15,6 @@
 
 <div class="list-todos">
   {#each derivedListTodos as todo}
-    <p>{todo.title}</p>
+    <SingleTodo todo={todo} />
   {/each}
 </div>

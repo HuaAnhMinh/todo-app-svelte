@@ -1,47 +1,34 @@
 <script>
-  let objects = [
-    {
-      title: "The quick brown fox jumps over the lazy dog.",
-      deadline: 20000,
-      _id: "0",
-      isFinished: false,
-    },
-    {
-      title: "The quick brown fox jumps over the lazy dog.",
-      deadline: 20000,
-      _id: "0",
-      isFinished: false,
-    },
-  ];
+  import moment from 'moment';
+
+  export let todo;
+
+  const deadlineString = moment((new Date(todo.deadline))).format('DD/MM/YYYY - HH:mm');
 </script>
 
 <style lang="scss">
   @import "../styles/SingleTodo";
 </style>
 
-{#each objects as object}
-  <div class="single-todo">
-    <div class="todo-group">
-      <div class="todo-group-component">
-        {#if object.isFinished}
-          <lable><del>{object.title}</del></lable>
-        {:else}
-          <lable>{object.title}</lable>
-        {/if}
-        <div class="todo-group-component-button">
-          <button> <i class="fas fa-edit" /> </button>
-        </div>
-      </div>
-      <div class="todo-group-component">
-        {#if object.isFinished}
-          <lable><del>{object.deadline}</del></lable>
-        {:else}
-          <lable>{object.deadline}</lable>
-        {/if}
-        <div class="todo-group-component-button">
-          <button> <i class="fas fa-trash" /> </button>
-        </div>
-      </div>
+<div class="single-todo">
+  <div class="single-todo__contents {todo.isFinished ? 'single-todo__contents--finished' : ''}">
+    <div>
+      <h2 class="no-select single-todo__contents__title">{todo.title}</h2>
+    </div>
+    <div>
+      <p class="no-select single-todo__contentes__description">Deadline: {deadlineString}</p>
     </div>
   </div>
-{/each}
+  <div class="single-todo__actions">
+    <div>
+      <button class="btn btn-primary single-todo__actions__button">
+        <i class="fas fa-edit" />
+      </button>
+    </div>
+    <div>
+      <button class="btn btn-primary single-todo__actions__button single-todo__actions__button--remove">
+        <i class="fas fa-trash" />
+      </button>
+    </div>
+  </div>
+</div>
