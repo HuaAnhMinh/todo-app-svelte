@@ -8,12 +8,22 @@
     };
 
     const submit = () => {
-        console.log(checked)
-    }
+        let deadline = document.getElementById("picker").value;
+
+        //data to call api
+        let data = {
+            title,
+            desciption,
+            deadline,
+            finished
+        };
+
+        console.log(data);
+    };
 
     let title;
     let desciption;
-    let checked = false;
+    let finished = false;
 </script>
 
 <style lang="scss">
@@ -39,13 +49,19 @@
                     type="text"
                     placeholder="Desciption"
                     bind:value={desciption} />
+                <div class="deadline">
+                    <label class="label" for="picker">Deadline</label>
+                    <input
+                        id="picker"
+                        class="picker"
+                        type="datetime-local" />
+                </div>
                 <div class="finish">
                     <input
                         id="checkbox"
                         class="checkbox"
                         type="checkbox"
-                        on:click={() => checked = !checked}
-                        checked={checked} />
+                        on:click={() => (finished = !finished)} />
                     <label class="label" for="checkbox">Finished</label>
                 </div>
             </div>
