@@ -1,0 +1,85 @@
+div.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+div.content-wrapper {
+    z-index: 10;
+    width: 50%;
+    height: 70%;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid black;
+}
+div.header {
+    background-color: dodgerblue;
+    color: white;
+    display: flex;
+    padding: 10px;
+    height: 20%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+div.content {
+    height: 70%;
+    overflow: auto;
+    border-top: 1px solid black;
+    padding: 10px;
+}
+input.title {
+    width: 100%;
+    margin-bottom: 10px;
+}
+textarea.desciption {
+    width: 100%;
+    height: 50%;
+    text-align: start;
+}
+div.finish {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+input.checkbox {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+div.footer {
+    height: 10%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+label.label {
+    font-size: 20px;
+}
+button.cancel {
+    background-color: red;
+    color: white;
+    font-size: 20px;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+button.confirm {
+    background-color: dodgerblue;
+    color: white;
+    font-size: 20px;
+    border: 1px solid black;
+}
