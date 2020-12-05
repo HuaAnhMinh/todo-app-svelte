@@ -1,17 +1,27 @@
 <script>
-  import {onMount} from 'svelte';
-  import NoInternetToast from './NoInternetToast.svelte';
-  import SearchPatternContext from '../context/SearchPattern.context.svelte';
-  import ListTodosContext from '../context/ListTodos.context.svelte';
+  import Modal from "./Modal.svelte";
+  import { onMount } from "svelte";
+  import NoInternetToast from "./NoInternetToast.svelte";
+  import SearchPatternContext from "../context/SearchPattern.context.svelte";
+  import ListTodosContext from "../context/ListTodos.context.svelte";
   import SearchBar from "./SearchBar.svelte";
   import ListTodos from "./ListTodos.svelte";
   import AddTodo from "./AddTodo.svelte";
 
   let width = window.innerWidth;
+  let modalVisible = false;
   const onWindowResize = (e) => {
     if (e.target.innerWidth !== width) {
       width = e.target.innerWidth;
     }
+  };
+
+  const openModal = () => {
+    modalVisible = true;
+  };
+
+  const closeModal = () => {
+    modalVisible = false;
   };
 
   let showNoInternetToast = false;
@@ -21,46 +31,45 @@
 
   onMount(() => {
     window.onresize = onWindowResize;
-    window.ononline = () => showNoInternetToast = false;
-    window.onoffline = () => showNoInternetToast = true;
+    window.ononline = () => (showNoInternetToast = false);
+    window.onoffline = () => (showNoInternetToast = true);
   });
-
 </script>
 
 <style lang="scss">
-  @import '../styles/Home.scss';
+  @import "../styles/Home.scss";
 </style>
 
 <div class="container-sm home">
   <div class="row home__row">
-
-  {#if width < 992}
-    <div class="col home-wrapper">
-      <SearchPatternContext>
-        <ListTodosContext>
-          <SearchBar/>
-          <ListTodos/>
-          <AddTodo/>
-        </ListTodosContext>
-      </SearchPatternContext>
-    </div>
-  {:else}
-    <div class="col-2"></div>
-    <div class="col-8 home-wrapper">
-      <SearchPatternContext>
-        <ListTodosContext>
-          <SearchBar/>
-          <ListTodos/>
-          <AddTodo/>
-        </ListTodosContext>
-      </SearchPatternContext>
-    </div>
-    <div class="col-2"></div>
-  {/if}
+    {#if width < 992}
+      <div class="col home-wrapper">
+        <SearchPatternContext>
+          <ListTodosContext>
+            <SearchBar />
+            <ListTodos />
+            <AddTodo on:onOpen={openModal} />
+          </ListTodosContext>
+          <Modal enabled={modalVisible} on:onClose={closeModal} />
+        </SearchPatternContext>
+      </div>
+    {:else}
+      <div class="col-2" />
+      <div class="col-8 home-wrapper">
+        <SearchPatternContext>
+          <ListTodosContext>
+            <SearchBar />
+            <ListTodos />
+            <AddTodo on:onOpen={openModal} />
+          </ListTodosContext>
+          <Modal enabled={modalVisible} on:onClose={closeModal} />
+        </SearchPatternContext>
+      </div>
+      <div class="col-2" />
+    {/if}
 
     <NoInternetToast
       show={showNoInternetToast}
-      onHide={setShowNoInternetToast}
-    />
+      onHide={setShowNoInternetToast} />
   </div>
 </div>
