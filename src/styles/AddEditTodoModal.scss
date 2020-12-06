@@ -1,0 +1,57 @@
+@import './config.scss';
+
+.show {
+  display: block;
+
+  .modal-content {
+    border: none;
+    background-color: white;
+    cursor: default;
+  }
+}
+
+.add-edit-todo-modal__header {
+  opacity: 1 !important;
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+.add-edit-todo-modal__header__close {
+  outline: none !important;
+  color: white !important;
+  opacity: 1;
+}
+
+.add-edit-todo-modal__body {
+  background-color: white;
+}
+
+.add-edit-todo-modal__body__error {
+  text-align: center;
+  color: red;
+}
+
+.add-edit-modal__body__form {
+  margin-bottom: 1.25rem;
+}
+
+.add-edit-modal__body__form__description {
+  resize: none;
+}
+
+.add-edit-modal__body_form--is-finished {
+  position: relative;
+  display: block;
+  margin-left: 1.25rem;
+  top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.add-edit-todo-modal__footer__button {
+  outline: none !important;
+  border: none !important;
+}
+
+.add-edit-todo-modal__footer__button--add {
+  background-color: $primary-color !important;
+}

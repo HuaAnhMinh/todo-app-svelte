@@ -1,5 +1,4 @@
 <script>
-  import Modal from "./Modal.svelte";
   import { onMount } from "svelte";
   import NoInternetToast from "./NoInternetToast.svelte";
   import SearchPatternContext from "../context/SearchPattern.context.svelte";
@@ -9,19 +8,10 @@
   import AddTodo from "./AddTodo.svelte";
 
   let width = window.innerWidth;
-  let modalVisible = false;
   const onWindowResize = (e) => {
     if (e.target.innerWidth !== width) {
       width = e.target.innerWidth;
     }
-  };
-
-  const openModal = () => {
-    modalVisible = true;
-  };
-
-  const closeModal = () => {
-    modalVisible = false;
   };
 
   let showNoInternetToast = false;
@@ -42,15 +32,19 @@
 
 <div class="container-sm home">
   <div class="row home__row">
+    <NoInternetToast
+      show={showNoInternetToast}
+      onHide={setShowNoInternetToast}
+    />
+    
     {#if width < 992}
       <div class="col home-wrapper">
         <SearchPatternContext>
           <ListTodosContext>
             <SearchBar />
             <ListTodos />
-            <AddTodo on:onOpen={openModal} />
+            <AddTodo />
           </ListTodosContext>
-          <Modal enabled={modalVisible} on:onClose={closeModal} />
         </SearchPatternContext>
       </div>
     {:else}
@@ -60,16 +54,11 @@
           <ListTodosContext>
             <SearchBar />
             <ListTodos />
-            <AddTodo on:onOpen={openModal} />
+            <AddTodo />
           </ListTodosContext>
-          <Modal enabled={modalVisible} on:onClose={closeModal} />
         </SearchPatternContext>
       </div>
       <div class="col-2" />
     {/if}
-
-    <NoInternetToast
-      show={showNoInternetToast}
-      onHide={setShowNoInternetToast} />
   </div>
 </div>

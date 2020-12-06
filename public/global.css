@@ -29,11 +29,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555;
+  background: #bbbbbb;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: #BBBBBB;
 }
 
 .no-select {

@@ -1,7 +1,7 @@
 <script>
   import { getContext } from 'svelte';
 
-  const searchPattern = getContext('searchPatternContext');
+  const searchPattern = getContext('searchPattern');
 </script>
 
 <style lang="scss">

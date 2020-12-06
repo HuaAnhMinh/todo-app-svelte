@@ -4,7 +4,11 @@
 
 <script>
   export let onHide;
-  export let show
+  export let show;
+  
+  let zIndex = 'unset';
+
+  $: zIndex = show ? 1 : 'unset';
 </script>
 
 <div
@@ -12,6 +16,7 @@
   role="alert"
   aria-atomic="true"
   aria-live="assertive"
+  style="z-index: {zIndex}"
 >
   <div class="toast-header no-internet__header">
     <strong class="mr-auto no-internet__header__title">

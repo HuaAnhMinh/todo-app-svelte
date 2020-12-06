@@ -14,7 +14,7 @@
   const addNewTodo = async (newTodo) => {
     const result = await addTodoToServer(newTodo);
     if (result.type === responseTypes.FAILED) {
-      return;
+      return result.error;
     }
 
     $listTodos = [result.data.todo, ...$listTodos];
@@ -36,42 +36,45 @@
     }
 
     $listTodos[currentIndex] = result.data.todo;
+    return result.data.todo;
   };
 
   const updateTodo = async (id, index, oldTodo, updatedTodo) => {
     const updatedPart = {};
 
-    if (oldTodo.title !== updateTodo.title) {
-      updatedPart.title = updateTodo.title;
+    if (oldTodo.title !== updatedTodo.title) {
+      updatedPart.title = updatedTodo.title;
     }
 
-    if (oldTodo.description !== updateTodo.description) {
-      updatedPart.description = updateTodo.description;
+    if (oldTodo.description !== updatedTodo.description) {
+      updatedPart.description = updatedTodo.description;
     }
 
-    if (oldTodo.deadline !== updateTodo.deadline) {
+    if (oldTodo.deadline !== updatedTodo.deadline) {
       updatedPart.deadline = updatedTodo.deadline;
     }
 
-    if (oldTodo.isFinished !== updateTodo.isFinished) {
-      updatedPart.isFinished = updateTodo.isFinished;
+    if (oldTodo.isFinished !== updatedTodo.isFinished) {
+      updatedPart.isFinished = updatedTodo.isFinished;
     }
 
     const result = await updateTodoToServer(id, updatedPart);
     if (result.type === responseTypes.FAILED) {
-      return;
+      return result.error;
     }
 
     $listTodos[index] = result.data.todo;
   };
 
-  const removeTodo = async (id) => {
+  const removeTodo = async (id, index) => {
     const result = await removeTodoFromServer(id);
-    if (result.type !== responseTypes.FAILED) {
+    if (result.type === responseTypes.FAILED) {
       return;
     }
 
-    $listTodos = $listTodos.filter(todo => todo._id !== id);
+    let temp = [...$listTodos];
+    temp.splice(index, 1);
+    $listTodos = temp;
   };
 
   setContext('listTodos', listTodos);
