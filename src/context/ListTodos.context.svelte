@@ -13,9 +13,8 @@
 
   const addNewTodo = async (newTodo) => {
     const result = await addTodoToServer(newTodo);
-    console.log(result);
     if (result.type === responseTypes.FAILED) {
-      return;
+      return result.error;
     }
 
     $listTodos = [result.data.todo, ...$listTodos];
@@ -61,11 +60,10 @@
 
     const result = await updateTodoToServer(id, updatedPart);
     if (result.type === responseTypes.FAILED) {
-      return;
+      return result.error;
     }
 
     $listTodos[index] = result.data.todo;
-    return result.data.todo;
   };
 
   const removeTodo = async (id, index) => {

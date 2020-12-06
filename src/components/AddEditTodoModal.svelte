@@ -7,6 +7,7 @@
   export let modalId;
   export let todo = {};
   export let todoIndex;
+  let error = '';
 
   let openFirstTime = true;
 
@@ -46,6 +47,10 @@
       deadline = moment(new Date(fullTodo.deadline)).format('YYYY-MM-DDTHH:mm');
     }
 
+    if (!open) {
+      error = '';
+    }
+
     if (!open && !todo._id) {
       title = '';
       description = '';
@@ -61,6 +66,11 @@
       isFinished,
       deadline: (new Date(deadline)).valueOf(),
     });
+    if (typeof result === 'string') {
+      error = result;
+      return;
+    }
+
     document.getElementById(`${modalId}-close`).click();
   };
 
@@ -71,6 +81,10 @@
       isFinished,
       deadline: (new Date(deadline)).valueOf(),
     });
+    if (typeof result === 'string') {
+      error = result;
+      return;
+    }
 
     document.getElementById(`${modalId}-close`).click();
   };
@@ -105,6 +119,9 @@
         </button>
       </div>
       <div class="modal-body add-edit-todo-modal__body">
+        {#if error}
+          <p class="add-edit-todo-modal__body__error">{error}</p>
+        {/if}
         <div class="add-edit-modal__body__form">
           <label for="{modalId}-title">Title</label>
           <input
