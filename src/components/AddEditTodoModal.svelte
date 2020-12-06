@@ -33,6 +33,7 @@
   });
 
   const getTodo = getContext('getTodo');
+  const updateTodo = getContext('updateTodo');
 
   afterUpdate(async () => {
     if (open && openFirstTime && !description && todo._id) {
@@ -64,7 +65,14 @@
   };
 
   const handleEditTodo = async () => {
-    console.log('Edit');
+    const result = await updateTodo(todo._id, todoIndex, todo, {
+      title,
+      description,
+      isFinished,
+      deadline: (new Date(deadline)).valueOf(),
+    });
+
+    document.getElementById(`${modalId}-close`).click();
   };
 </script>
 

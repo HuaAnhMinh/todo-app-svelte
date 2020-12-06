@@ -43,20 +43,20 @@
   const updateTodo = async (id, index, oldTodo, updatedTodo) => {
     const updatedPart = {};
 
-    if (oldTodo.title !== updateTodo.title) {
-      updatedPart.title = updateTodo.title;
+    if (oldTodo.title !== updatedTodo.title) {
+      updatedPart.title = updatedTodo.title;
     }
 
-    if (oldTodo.description !== updateTodo.description) {
-      updatedPart.description = updateTodo.description;
+    if (oldTodo.description !== updatedTodo.description) {
+      updatedPart.description = updatedTodo.description;
     }
 
-    if (oldTodo.deadline !== updateTodo.deadline) {
+    if (oldTodo.deadline !== updatedTodo.deadline) {
       updatedPart.deadline = updatedTodo.deadline;
     }
 
-    if (oldTodo.isFinished !== updateTodo.isFinished) {
-      updatedPart.isFinished = updateTodo.isFinished;
+    if (oldTodo.isFinished !== updatedTodo.isFinished) {
+      updatedPart.isFinished = updatedTodo.isFinished;
     }
 
     const result = await updateTodoToServer(id, updatedPart);
@@ -65,6 +65,7 @@
     }
 
     $listTodos[index] = result.data.todo;
+    return result.data.todo;
   };
 
   const removeTodo = async (id, index) => {

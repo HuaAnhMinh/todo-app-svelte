@@ -8,7 +8,7 @@
   export let todo;
   export let todoIndex;
 
-  const deadlineString = moment((new Date(todo.deadline))).format('DD/MM/YYYY - HH:mm');
+  $: deadlineString = moment((new Date(todo.deadline))).format('DD/MM/YYYY - HH:mm');
 
   let openEditTodo = false;
   let openPromptRemove = false;
