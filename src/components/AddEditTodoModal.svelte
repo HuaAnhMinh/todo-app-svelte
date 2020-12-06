@@ -13,7 +13,9 @@
   let title = '';
   let description = '';
   let isFinished = false;
-  let deadline = ''
+  let deadline = '';
+
+  const addTodo = getContext('addTodo');
 
   onMount(() => {
     if (todo._id) {
@@ -22,6 +24,12 @@
       isFinished = todo.isFinished;
       deadline = moment(new Date(todo.deadline)).format('YYYY-MM-DDTHH:mm');
     }
+
+    document.getElementById(modalId).addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    });
   });
 
   const getTodo = getContext('getTodo');
@@ -36,10 +44,23 @@
       isFinished = fullTodo.isFinished;
       deadline = moment(new Date(fullTodo.deadline)).format('YYYY-MM-DDTHH:mm');
     }
+
+    if (!open && !todo._id) {
+      title = '';
+      description = '';
+      isFinished = false;
+      deadline = '';
+    }
   });
 
   const handleAddTodo = async () => {
-    console.log('add');
+    const result = await addTodo({
+      title,
+      description,
+      isFinished,
+      deadline: (new Date(deadline)).valueOf(),
+    });
+    document.getElementById(`${modalId}-close`).click();
   };
 
   const handleEditTodo = async () => {
@@ -70,6 +91,7 @@
           data-dismiss="modal"
           aria-label="close"
           on:click={onClose}
+          id="{modalId}-close"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -112,6 +134,7 @@
           type="button"
           class="btn btn-secondary add-edit-todo-modal__footer__button"
           data-dismiss="modal"
+          on:click={onClose}
         >
           Close
         </button>

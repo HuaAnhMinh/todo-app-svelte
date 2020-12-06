@@ -1,5 +1,5 @@
 <script>
-  import { getContext, afterUpdate } from 'svelte';
+  import { getContext } from 'svelte';
 
   import SingleTodo from './SingleTodo.svelte';
   
@@ -7,10 +7,6 @@
   const searchPattern = getContext('searchPattern');
 
   $: derivedListTodos = $listTodos.filter(todo => todo.title.toLowerCase().includes($searchPattern.toLowerCase()));
-
-  afterUpdate(() => {
-    console.log($listTodos);
-  })
 </script>
 
 <style lang="scss">
@@ -18,7 +14,7 @@
 </style>
 
 <div class="list-todos">
-  {#each $listTodos as todo, index}
+  {#each derivedListTodos as todo, index}
     <SingleTodo todo={todo} todoIndex={index} />
   {/each}
 </div>

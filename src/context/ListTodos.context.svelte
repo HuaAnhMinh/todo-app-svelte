@@ -13,6 +13,7 @@
 
   const addNewTodo = async (newTodo) => {
     const result = await addTodoToServer(newTodo);
+    console.log(result);
     if (result.type === responseTypes.FAILED) {
       return;
     }
@@ -67,7 +68,6 @@
   };
 
   const removeTodo = async (id, index) => {
-    console.log(id, index);
     const result = await removeTodoFromServer(id);
     if (result.type === responseTypes.FAILED) {
       return;

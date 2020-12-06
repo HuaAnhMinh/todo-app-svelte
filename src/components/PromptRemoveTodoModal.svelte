@@ -46,6 +46,7 @@
           type="button"
           class="btn btn-secondary"
           data-dismiss="modal"
+          on:click={onClose}
         >
           Cancel
         </button>
