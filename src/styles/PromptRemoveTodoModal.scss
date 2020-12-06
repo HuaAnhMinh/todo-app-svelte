@@ -1,0 +1,23 @@
+@import './config.scss';
+
+.show {
+  display: block;
+
+  .modal-content {
+    border: none;
+    background-color: white;
+    cursor: default;
+  }
+}
+
+.prompt-remove-todo__header {
+  opacity: 1 !important;
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+.prompt-remove-todo__header__close {
+  outline: none !important;
+  color: white !important;
+  opacity: 1;
+}

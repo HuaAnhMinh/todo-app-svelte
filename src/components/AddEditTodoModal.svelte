@@ -9,31 +9,42 @@
   export let todoIndex;
 
   let openFirstTime = true;
-  let editableTodo = {
-    title: '',
-    description: '',
-    isFinished: false,
-    deadline: '',
-  };
+
+  let title = '';
+  let description = '';
+  let isFinished = false;
+  let deadline = ''
 
   onMount(() => {
-    editableTodo = todo;
     if (todo._id) {
-      editableTodo.deadline = moment(new Date(editableTodo.deadline)).format('yyyy-MM-ddThh:mm');
-      console.log(editableTodo)
+      title = todo.title;
+      description = todo.description ? todo.description : '';
+      isFinished = todo.isFinished;
+      deadline = moment(new Date(todo.deadline)).format('YYYY-MM-DDTHH:mm');
     }
   });
 
   const getTodo = getContext('getTodo');
 
   afterUpdate(async () => {
-    if (open && openFirstTime && !editableTodo.description && todo._id) {
-      console.log('Here');
+    if (open && openFirstTime && !description && todo._id) {
       openFirstTime = false;
-      editableTodo = await getTodo(todo._id, todoIndex);
-    }
+      const fullTodo = await getTodo(todo._id, todoIndex);
 
+      title = fullTodo.title;
+      description = fullTodo.description;
+      isFinished = fullTodo.isFinished;
+      deadline = moment(new Date(fullTodo.deadline)).format('YYYY-MM-DDTHH:mm');
+    }
   });
+
+  const handleAddTodo = async () => {
+    console.log('add');
+  };
+
+  const handleEditTodo = async () => {
+    console.log('Edit');
+  };
 </script>
 
 <style lang="scss">
@@ -52,7 +63,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header close add-edit-todo-modal__header">
-        <h5 class="modal-title" id="{modalId}-title">{editableTodo._id ? 'Edit' : 'Add'} todo</h5>
+        <h5 class="modal-title" id="{modalId}-title">{todo._id ? 'Edit' : 'Add'} todo</h5>
         <button
           type="button"
           class="close add-edit-todo-modal__header__close"
@@ -71,7 +82,7 @@
             id="{modalId}-title"
             class="form-control"
             placeholder="Title"
-            bind:value={editableTodo.title}
+            bind:value={title}
           />
         </div>
         <div class="add-edit-modal__body__form">
@@ -82,15 +93,15 @@
             class="form-control add-edit-modal__body__form__description"
             rows="5"
             placeholder="Description"
-            bind:value={editableTodo.description}
+            bind:value={description}
           />
         </div>
         <div class="add-edit-modal__body_form">
           <label for="{modalId}-deadline">Deadline</label>
-          <input type="datetime-local" id="{modalId}-deadline" class="form-control" bind:value={editableTodo.deadline} />
+          <input type="datetime-local" id="{modalId}-deadline" class="form-control" bind:value={deadline} />
         </div>
         <div class="add-edit-modal__body_form add-edit-modal__body_form--is-finished">
-          <input class="form-check-input" type="checkbox" value="" id="{modalId}-isFinished" bind:checked={editableTodo.isFinished}>
+          <input class="form-check-input" type="checkbox" value="" id="{modalId}-isFinished" bind:checked={isFinished}>
           <label class="form-check-label" for="{modalId}-isFinished">
             Is finished?
           </label>
@@ -107,6 +118,7 @@
         <button
           type="button"
           class="btn btn-primary add-edit-todo-modal__footer__button add-edit-todo-modal__footer__button--add"
+          on:click={todo._id ? handleEditTodo : handleAddTodo}
         >
           {todo._id ? 'Update' : 'Add'} todo
         </button>

@@ -1,7 +1,9 @@
 <script>
+  import { getContext } from 'svelte';
   import moment from 'moment';
 
   import AddEditTodoModal from './AddEditTodoModal.svelte';
+  import PromptRemoveTodoModal from './PromptRemoveTodoModal.svelte';
 
   export let todo;
   export let todoIndex;
@@ -9,6 +11,10 @@
   const deadlineString = moment((new Date(todo.deadline))).format('DD/MM/YYYY - HH:mm');
 
   let openEditTodo = false;
+  let openPromptRemove = false;
+
+  const removeTodo = getContext('removeTodo');
+
 </script>
 
 <style lang="scss">
@@ -37,7 +43,13 @@
       </button>
     </div>
     <div>
-      <button class="btn btn-primary single-todo__actions__button single-todo__actions__button--remove">
+      <button
+        class="btn btn-primary single-todo__actions__button single-todo__actions__button--remove"
+        on:click={() => openPromptRemove = true}
+        data-toggle="modal"
+        data-keyboard="true"
+        data-target="#remove-todo-{todo._id}"
+      >
         <i class="fas fa-trash" />
       </button>
     </div>
@@ -49,5 +61,12 @@
     modalId="edit-todo-{todo._id}"
     todo={todo}
     todoIndex={todoIndex}
+  />
+
+  <PromptRemoveTodoModal
+    open={openPromptRemove}
+    onClose={() => openPromptRemove = false}
+    modalId="remove-todo-{todo._id}"
+    removeCallback={() => removeTodo(todo._id, todoIndex)}
   />
 </div>

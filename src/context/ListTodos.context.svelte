@@ -66,13 +66,16 @@
     $listTodos[index] = result.data.todo;
   };
 
-  const removeTodo = async (id) => {
+  const removeTodo = async (id, index) => {
+    console.log(id, index);
     const result = await removeTodoFromServer(id);
-    if (result.type !== responseTypes.FAILED) {
+    if (result.type === responseTypes.FAILED) {
       return;
     }
 
-    $listTodos = $listTodos.filter(todo => todo._id !== id);
+    let temp = [...$listTodos];
+    temp.splice(index, 1);
+    $listTodos = temp;
   };
 
   setContext('listTodos', listTodos);
